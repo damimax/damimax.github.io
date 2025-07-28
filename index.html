@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <!-- SEO优化：添加网站描述和关键词 -->
+    <meta
+      name="description"
+      content="郑州龙湖熙上二期交付倒计时，为您提供舒适宜居的理想家园。"
+    />
+    <meta
+      name="keywords"
+      content="郑州龙湖熙上, 郑州楼盘, 二期交付, 新房交付, 倒计时"
+    />
+    <meta name="author" content="熙上业主之家" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- 社交媒体分享优化 -->
+    <meta property="og:title" content="郑州 · 龙湖熙上 | 二期交付倒计时" />
+    <meta
+      property="og:description"
+      content="郑州龙湖熙上二期交付进入倒计时阶段，美好家园即将实景呈现，期待与您共鉴新家。"
+    />
+    <meta
+      property="og:image"
+      content="https://example.com/longfor-xishang.jpg"
+    />
+    <meta property="og:url" content="https://longfor-xishang.com" />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:title" content="郑州 · 龙湖熙上 | 二期交付倒计时" />
+    <meta
+      name="twitter:description"
+      content="郑州龙湖熙上二期交付进入倒计时阶段，美好家园即将实景呈现，期待与您共鉴新家。"
+    />
+    <meta
+      name="twitter:image"
+      content="https://example.com/longfor-xishang.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>郑州· 龙湖熙上 | 二期交付倒计时</title>
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/footer.css" />
+  </head>
+  <body>
+    <!-- 粒子背景 -->
+    <div id="particles-js"></div>
+    <!-- 流星效果容器 -->
+    <div class="meteor-container"></div>
+    <!-- 主内容容器 -->
+    <main class="countdown-container">
+      <header>
+        <div class="project-title">交付在即 · 满是期待</div>
+        <h1 class="main-title">郑州 · 龙湖熙上</h1>
+        <h2
+          class="project-subtitle"
+          style="
+            margin-bottom: 2.5rem;
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            color: #b3d9ff;
+          "
+        >
+          二期交付倒计时
+        </h2>
+      </header>
+
+      <section class="countdown">
+        <div class="time-item">
+          <div class="box" data-target="days">
+            <div class="front">--</div>
+            <!-- 初始占位符，避免00 -->
+            <div class="back">--</div>
+          </div>
+          <div class="unit">天</div>
+        </div>
+        <div class="time-item">
+          <div class="box" data-target="hours">
+            <div class="front">--</div>
+            <div class="back">--</div>
+          </div>
+          <div class="unit">时</div>
+        </div>
+        <div class="time-item">
+          <div class="box" data-target="minutes">
+            <div class="front">--</div>
+            <div class="back">--</div>
+          </div>
+          <div class="unit">分</div>
+        </div>
+        <div class="time-item">
+          <div class="box" data-target="seconds">
+            <div class="front">--</div>
+            <div class="back">--</div>
+          </div>
+          <div class="unit">秒</div>
+        </div>
+      </section>
+      <!-- 期待确认区域 -->
+      <section class="reminder">
+        <p>美好家园，即将实景呈现</p>
+        <p style="margin-top: 0.5rem">希望质量稳稳在线，「善待你一生」。</p>
+      </section>
+    </main>
+
+    <!-- 版权和免责声明 -->
+    <footer class="footer">
+      <div class="copyright">© 2025 熙上业主之家. 保留所有权利.</div>
+      <div class="disclaimer">
+        本页面内容仅为个人信息整理，仅供参考，不构成任何承诺、保证、决策建议或法律依据。
+      </div>
+    </footer>
+
+    <script src="/libs/particles.min.js"></script>
+    <script type="module">
+      import { meteorEffect } from './js/meteors.js';
+      import { countdownTimer } from './js/timer.js';
+      // 等待DOM完全加载后执行，确保元素可用
+      document.addEventListener('DOMContentLoaded', function () {
+        const isMobile = window.innerWidth < 768;
+
+        // 粒子背景初始化
+        particlesJS('particles-js', {
+          particles: {
+            number: { value: isMobile ? 40 : 90 },
+            color: { value: ['#4a90e2', '#50e3c2', '#80bfff'] },
+            shape: { type: 'circle' },
+            opacity: { value: 0.7, anim: { enable: true } },
+            size: { value: isMobile ? 2 : 3, anim: { enable: true } },
+            line_linked: { enable: true, color: '#4a90e2', opacity: 0.2 },
+            move: { enable: true, speed: isMobile ? 0.8 : 1.2 },
+          },
+          interactivity: {
+            onhover: { enable: true, mode: 'grab' },
+            onclick: { enable: true, mode: 'push' },
+          },
+          retina_detect: true,
+        });
+
+        // 启动流星效果
+        meteorEffect.init();
+
+        // 启动倒计时
+        countdownTimer.init();
+      });
+    </script>
+  </body>
+</html>
