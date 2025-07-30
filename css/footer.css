@@ -1,6 +1,6 @@
 /* 新增版权和免责声明样式 */
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
