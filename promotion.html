@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <meta
+      name="description"
+      content="郑州龙湖熙上二期宣传效果展示，为您呈现精美的项目宣传资料。"
+    />
+    <meta
+      name="keywords"
+      content="郑州龙湖熙上, 宣传效果, 项目展示, 楼盘宣传"
+    />
+    <meta name="author" content="熙上业主之家" />
+    <meta name="robots" content="index, follow" />
+    <title>郑州· 龙湖熙上 | 宣传效果</title>
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/footer.css" />
+    <link rel="stylesheet" href="./css/navigation.css" />
+    <link rel="stylesheet" href="./css/gallery.css" />
+  </head>
+  <body>
+    <div class="page-container">
+      <!-- 导航栏 -->
+      <nav class="navigation">
+        <div class="nav-container">
+          <ul class="nav-menu">
+            <li class="nav-item">
+              <a href="./index.html" class="nav-link">首页</a>
+            </li>
+            <li class="nav-item">
+              <a href="./promotion.html" class="nav-link active">宣传效果</a>
+            </li>
+            <li class="nav-item">
+              <a href="./sandbox.html" class="nav-link">小区沙盘</a>
+            </li>
+            <li class="nav-item">
+              <a href="./standards.html" class="nav-link">交付标准</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      
+      <!-- 主内容区域 -->
+      <div class="main-content">
+        <!-- 粒子背景 -->
+        <div id="particles-js"></div>
+        <!-- 流星效果容器 -->
+        <div class="meteor-container"></div>
+        <!-- 主内容容器 -->
+        <main class="countdown-container">
+      <header>
+        <h1 class="main-title">宣传效果</h1>
+        <h2 class="project-subtitle" style="margin-bottom: 2.5rem; font-size: clamp(1.2rem, 3vw, 1.6rem); color: #b3d9ff;">
+          宣传视频，效果图，等资料展示
+        </h2>
+      </header>
+      
+      <section class="content-section">
+        <div class="gallery-container" id="promotion-gallery">
+          <!-- 画廊内容将通过JavaScript动态加载 -->
+        </div>
+      </section>
+        </main>
+      </div>
+
+      <!-- 版权和免责声明 -->
+      <footer class="footer">
+        <div class="copyright">© 2025 熙上业主之家. 保留所有权利.</div>
+        <div class="disclaimer">
+          本页面内容仅为个人信息整理，仅供参考，不构成任何承诺、保证、决策建议或法律依据。
+        </div>
+      </footer>
+    </div>
+
+    <script src="/libs/particles.min.js"></script>
+    <script type="module">
+      import { meteorEffect } from './js/meteors.js';
+      import { Gallery } from './js/gallery.js';
+      import promotionResources from './resources/promotion/index.js';
+      
+      // 等待DOM完全加载后执行
+      document.addEventListener('DOMContentLoaded', function () {
+        const isMobile = window.innerWidth < 768;
+
+        // 粒子背景初始化
+        particlesJS('particles-js', {
+          particles: {
+            number: { value: isMobile ? 40 : 90 },
+            color: { value: ['#4a90e2', '#50e3c2', '#80bfff'] },
+            shape: { type: 'circle' },
+            opacity: { value: 0.7, anim: { enable: true } },
+            size: { value: isMobile ? 2 : 3, anim: { enable: true } },
+            line_linked: { enable: true, color: '#4a90e2', opacity: 0.2 },
+            move: { enable: true, speed: isMobile ? 0.8 : 1.2 },
+          },
+          interactivity: {
+            onhover: { enable: true, mode: 'grab' },
+            onclick: { enable: true, mode: 'push' },
+          },
+          retina_detect: true,
+        });
+
+        // 启动流星效果
+        meteorEffect.init();
+
+        // 初始化画廊
+        const galleryContainer = document.getElementById('promotion-gallery');
+        if (galleryContainer) {
+          new Gallery(galleryContainer, promotionResources);
+        }
+      });
+    </script>
+  </body>
+</html>

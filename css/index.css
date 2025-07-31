@@ -1,17 +1,66 @@
-/* 保持原有样式不变 */
-html {
-  font-size: 16px;
-}
+/* 基础样式重置 */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'PingFang SC', 'Inter', sans-serif;
 }
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
 body {
-  overflow: hidden;
-  background: linear-gradient(135deg, #0a1128 0%, #121f45 100%);
-  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #0c1426 0%, #1a2332 50%, #0c1426 100%);
+  color: #ffffff;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* 页面整体flex布局 */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* 头部导航固定高度 */
+.navigation {
+  flex-shrink: 0;
+  height: 70px; /* 固定导航高度 */
+}
+
+/* 主内容区域自适应 */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* 重要：允许内容收缩 */
+  overflow-y: auto; /* 内容过多时显示滚动条 */
+  overflow-x: hidden; /* 防止横向滚动 */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 底部固定高度 */
+.footer {
+  flex-shrink: 0;
+  height: 80px; /* 固定底部高度 */
+}
+
+/* 粒子背景和流星效果 */
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 .meteor-container {
@@ -19,30 +68,51 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.meteor {
-  position: absolute;
-  width: 1px;
-  height: clamp(50px, 20vh, 150px);
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  border-radius: 50%;
-  transform-origin: top center;
-  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.6);
-  opacity: 0;
-}
-
-#particles-js {
-  position: fixed;
-  width: 100%;
-  height: 100vh;
+  height: 100%;
   z-index: 1;
+  pointer-events: none;
+}
+
+/* 内容区域样式 */
+.content-wrapper {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1rem;
+  padding-top: 1rem; /* 减少顶部间距，因为导航已经固定 */
+  background: radial-gradient(
+    circle at center,
+    rgba(74, 144, 226, 0.15) 0%,
+    transparent 70%
+  );
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .navigation {
+    height: 60px; /* 移动端导航高度稍小 */
+  }
+  
+  .footer {
+    height: 70px; /* 移动端底部高度稍小 */
+  }
+  
+  .content-wrapper {
+    padding: 1rem 0.5rem;
+  }
+  
+  .main-content {
+    padding: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 0;
+  }
 }
