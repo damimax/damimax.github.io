@@ -20,7 +20,7 @@ class Gallery {
     const modalHTML = `
       <div class="modal-overlay" id="gallery-modal">
         <div class="modal-content">
-          <button class="modal-close" id="modal-close">&times;</button>
+          <button class="modal-close" id="modal-close" type="button">&times;</button>
           <div class="modal-media-container">
             <img class="modal-image" id="modal-image" style="display: none;">
             <video class="modal-video" id="modal-video" controls style="display: none;"></video>
@@ -36,6 +36,12 @@ class Gallery {
     this.modalVideo = document.getElementById('modal-video');
     this.modalTitle = document.getElementById('modal-title');
     this.modalClose = document.getElementById('modal-close');
+    
+    // 确保元素存在
+    if (!this.modalClose) {
+      console.error('关闭按钮元素未找到');
+      return;
+    }
   }
 
   renderGallery() {
@@ -151,21 +157,42 @@ class Gallery {
       }
     });
 
-    // 绑定弹框关闭事件
-    this.modalClose.addEventListener('click', () => {
-      this.closeModal();
-    });
+    // 绑定弹框关闭事件 - 使用多种方式确保事件绑定成功
+    if (this.modalClose) {
+      // 移除可能存在的旧事件监听器
+      this.modalClose.removeEventListener('click', this.closeModalHandler);
+      
+      // 创建事件处理器
+      this.closeModalHandler = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('关闭按钮被点击');
+        this.closeModal();
+      };
+      
+      // 绑定新的事件监听器
+      this.modalClose.addEventListener('click', this.closeModalHandler);
+      
+      // 添加调试信息
+      console.log('关闭按钮事件已绑定');
+    } else {
+      console.error('关闭按钮元素不存在，无法绑定事件');
+    }
 
     // 点击弹框背景关闭
-    this.modal.addEventListener('click', (e) => {
-      if (e.target === this.modal) {
-        this.closeModal();
-      }
-    });
+    if (this.modal) {
+      this.modal.addEventListener('click', (e) => {
+        if (e.target === this.modal) {
+          console.log('点击背景关闭弹框');
+          this.closeModal();
+        }
+      });
+    }
 
     // ESC键关闭弹框
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.modal.classList.contains('active')) {
+      if (e.key === 'Escape' && this.modal && this.modal.classList.contains('active')) {
+        console.log('ESC键关闭弹框');
         this.closeModal();
       }
     });
@@ -207,10 +234,17 @@ class Gallery {
     }
     
     this.modal.classList.add('active');
+    console.log('弹框已打开');
   }
 
   closeModal() {
+    if (!this.modal) {
+      console.error('弹框元素不存在');
+      return;
+    }
+    
     this.modal.classList.remove('active');
+    console.log('弹框已关闭');
     
     // 停止视频播放
     if (this.currentVideo) {
@@ -220,8 +254,12 @@ class Gallery {
     }
     
     // 清空媒体源
-    this.modalImage.src = '';
-    this.modalVideo.src = '';
+    if (this.modalImage) {
+      this.modalImage.src = '';
+    }
+    if (this.modalVideo) {
+      this.modalVideo.src = '';
+    }
   }
 }
 

@@ -116,6 +116,7 @@
   overflow: hidden;
   transform: scale(0.8);
   transition: transform 0.3s ease;
+  z-index: 1000;
 }
 
 .modal-overlay.active .modal-content {
@@ -151,6 +152,11 @@
   align-items: center;
   justify-content: center;
   transition: background 0.3s ease;
+  z-index: 1001;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .modal-close:hover {
