@@ -40,7 +40,7 @@ class Gallery {
 
   renderGallery() {
     const galleryHTML = this.resources.map((resource, index) => {
-      const fileType = this.getFileType(resource.url);
+      const fileType = this.getFileType(resource.thumbnail);
       const isVideo = fileType === 'video';
       const isDocument = fileType === 'document';
       const isUnsupported = fileType === 'unsupported';
@@ -49,7 +49,7 @@ class Gallery {
       let fileTypeBadge = '';
       
       if (isVideo) {
-        mediaElement = `<video class="lazy-load" data-src="${resource.url}" muted loop></video>`;
+        mediaElement = `<video class="lazy-load" data-src="${resource.thumbnail}" muted loop></video>`;
         fileTypeBadge = '<span class="file-type video">视频</span>';
       } else if (isDocument) {
         mediaElement = `<div class="document-preview" style="height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1);">
@@ -69,7 +69,7 @@ class Gallery {
         </div>`;
         fileTypeBadge = '<span class="file-type unsupported">不支持</span>';
       } else {
-        mediaElement = `<img class="lazy-load" data-src="${resource.url}" alt="${resource.name}">`;
+        mediaElement = `<img class="lazy-load" data-src="${resource.thumbnail}" alt="${resource.name}">`;
       }
 
       return `
@@ -166,19 +166,19 @@ class Gallery {
   }
 
   openModal(resource, index) {
-    const fileType = this.getFileType(resource.url);
+    const fileType = this.getFileType(resource.thumbnail);
     
     this.modalTitle.textContent = resource.name;
     
     if (fileType === 'video') {
       this.modalImage.style.display = 'none';
       this.modalVideo.style.display = 'block';
-      this.modalVideo.src = resource.url;
+      this.modalVideo.src = resource.thumbnail;
       this.currentVideo = this.modalVideo;
       this.modalVideo.play();
     } else if (fileType === 'document') {
       // 对于文档，直接下载或在新窗口打开
-      window.open(resource.url, '_blank');
+      window.open(resource.thumbnail, '_blank');
       return;
     } else if (fileType === 'unsupported') {
       // 对于不支持的文件格式，显示提示信息
@@ -189,7 +189,7 @@ class Gallery {
     } else {
       this.modalVideo.style.display = 'none';
       this.modalImage.style.display = 'block';
-      this.modalImage.src = resource.url;
+      this.modalImage.src = resource.thumbnail;
       this.currentVideo = null;
     }
     
