@@ -49,7 +49,13 @@ class Gallery {
       let fileTypeBadge = '';
       
       if (isVideo) {
-        mediaElement = `<video class="lazy-load" data-src="${resource.thumbnail}" muted loop></video>`;
+        mediaElement = `<div class="video-preview" style="height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1);">
+          <div style="text-align: center; color: white;">
+            <div style="font-size: 48px; margin-bottom: 10px;">🎥</div>
+            <div>${resource.name}</div>
+            <div style="font-size: 12px; margin-top: 5px; opacity: 0.8;">点击播放视频</div>
+          </div>
+        </div>`;
         fileTypeBadge = '<span class="file-type video">视频</span>';
       } else if (isDocument) {
         mediaElement = `<div class="document-preview" style="height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1);">
@@ -175,7 +181,14 @@ class Gallery {
       this.modalVideo.style.display = 'block';
       this.modalVideo.src = resource.url;
       this.currentVideo = this.modalVideo;
-      this.modalVideo.play();
+      
+      // 添加加载事件监听
+      this.modalVideo.addEventListener('loadeddata', () => {
+        this.modalVideo.play().catch(e => {
+          console.log('视频自动播放失败，需要用户交互:', e);
+        });
+      }, { once: true });
+      
     } else if (fileType === 'document') {
       // 对于文档，直接下载或在新窗口打开
       window.open(resource.thumbnail, '_blank');

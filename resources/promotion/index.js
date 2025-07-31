@@ -1,5 +1,20 @@
 const promotionResources = [
   {
+    name: '140052_1725440348',
+    url: './resources/promotion/resource/140052_1725440348.mp4',
+    thumbnail: './resources/promotion/thumbnail/140052_1725440348.mp4',
+  },
+  {
+    name: '140051_1725440327',
+    url: './resources/promotion/resource/140051_1725440327.mp4',
+    thumbnail: './resources/promotion/thumbnail/140051_1725440327.mp4',
+  },
+  {
+    name: '效果图汇总',
+    url: './resources/promotion/resource/效果图汇总.docx',
+    thumbnail: './resources/promotion/thumbnail/效果图汇总.docx',
+  },
+  {
     name: 'WechatIMG23788',
     url: './resources/promotion/resource/WechatIMG23788.jpeg',
     thumbnail: './resources/promotion/thumbnail/WechatIMG23788.jpeg',
@@ -438,22 +453,7 @@ const promotionResources = [
     url: './resources/promotion/resource/04231633fe6730ee1b670ccb03c9d5cd.jpg',
     thumbnail:
       './resources/promotion/thumbnail/04231633fe6730ee1b670ccb03c9d5cd.jpg',
-  },
-  {
-    name: '140052_1725440348',
-    url: './resources/promotion/resource/140052_1725440348.mp4',
-    thumbnail: './resources/promotion/thumbnail/140052_1725440348.mp4',
-  },
-  {
-    name: '140051_1725440327',
-    url: './resources/promotion/resource/140051_1725440327.mp4',
-    thumbnail: './resources/promotion/thumbnail/140051_1725440327.mp4',
-  },
-  {
-    name: '效果图汇总',
-    url: './resources/promotion/resource/效果图汇总.docx',
-    thumbnail: './resources/promotion/thumbnail/效果图汇总.docx',
-  },
+  }
 ];
 
 export default promotionResources;

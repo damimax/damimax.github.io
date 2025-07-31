@@ -1,5 +1,10 @@
 const sandboxResources = [
   {
+    name: 'IMG_7087',
+    url: './resources/sandbox/resource/IMG_7087.MOV',
+    thumbnail: './resources/sandbox/thumbnail/IMG_7087.MOV',
+  },
+  {
     name: 'IMG_20240725_183304',
     url: './resources/sandbox/resource/IMG_20240725_183304.jpg',
     thumbnail: './resources/sandbox/thumbnail/IMG_20240725_183304.jpg',
@@ -133,11 +138,6 @@ const sandboxResources = [
     name: '14091721875570_',
     url: './resources/sandbox/resource/14091721875570_.pic.jpg',
     thumbnail: './resources/sandbox/thumbnail/14091721875570_.pic.jpg',
-  },
-  {
-    name: 'IMG_7087',
-    url: './resources/sandbox/resource/IMG_7087.MOV',
-    thumbnail: './resources/sandbox/thumbnail/IMG_7087.MOV',
   },
   {
     name: 'IMG_7097',
