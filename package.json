@@ -1,13 +1,18 @@
 {
   "name": "damimax-thumbnail-optimizer",
   "version": "1.0.0",
-  "description": "智能缩略图优化工具，将图片压缩到20KB左右",
+  "description": "智能缩略图优化工具，支持标准模式(20KB)和激进模式(15KB)压缩",
   "main": "thumbnail-optimizer.js",
   "scripts": {
-    "optimize": "node thumbnail-optimizer.js",
-    "optimize:promotion": "node thumbnail-optimizer.js promotion",
-    "optimize:sandbox": "node thumbnail-optimizer.js sandbox",
-    "optimize:standards": "node thumbnail-optimizer.js standards"
+    "optimize": "node advanced-thumbnail-optimizer.js",
+    "optimize:promotion": "node advanced-thumbnail-optimizer.js promotion",
+    "optimize:sandbox": "node advanced-thumbnail-optimizer.js sandbox",
+    "optimize:standards": "node advanced-thumbnail-optimizer.js standards",
+    "optimize:aggressive": "node aggressive-optimizer.js",
+    "optimize:aggressive:promotion": "node aggressive-optimizer.js promotion",
+    "optimize:aggressive:sandbox": "node aggressive-optimizer.js sandbox",
+    "optimize:aggressive:standards": "node aggressive-optimizer.js standards",
+    "test": "node test-optimization.js"
   },
   "dependencies": {
     "sharp": "^0.32.6"
