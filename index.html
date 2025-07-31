@@ -46,8 +46,18 @@
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="stylesheet" href="./css/footer.css" />
     <link rel="stylesheet" href="./css/navigation.css" />
+    <link rel="stylesheet" href="./css/loading.css" />
   </head>
   <body>
+    <!-- 加载动画 -->
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="loading-container">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">正在加载<span class="loading-dots"></span></div>
+        <div class="loading-subtitle">郑州 · 龙湖熙上</div>
+      </div>
+    </div>
+    
     <div class="page-container">
       <!-- 导航栏 -->
       <nav class="navigation">
@@ -144,6 +154,11 @@
     <script type="module">
       import { meteorEffect } from './js/meteors.js';
       import { countdownTimer } from './js/timer.js';
+      import { LoadingManager } from './js/loading.js';
+      
+      // 初始化加载管理器
+      const loadingManager = new LoadingManager();
+      
       // 等待DOM完全加载后执行，确保元素可用
       document.addEventListener('DOMContentLoaded', function () {
         const isMobile = window.innerWidth < 768;
@@ -171,6 +186,9 @@
 
         // 启动倒计时
         countdownTimer.init();
+        
+        // 启动加载动画管理，设置最小加载时间为1.5秒
+        loadingManager.startWithMinLoadTime(1500);
       });
     </script>
   </body>

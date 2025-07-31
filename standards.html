@@ -22,8 +22,18 @@
     <link rel="stylesheet" href="./css/footer.css" />
     <link rel="stylesheet" href="./css/navigation.css" />
     <link rel="stylesheet" href="./css/gallery.css" />
+    <link rel="stylesheet" href="./css/loading.css" />
   </head>
   <body>
+    <!-- 加载动画 -->
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="loading-container">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">正在加载<span class="loading-dots"></span></div>
+        <div class="loading-subtitle">交付标准展示</div>
+      </div>
+    </div>
+    
     <div class="page-container">
       <!-- 导航栏 -->
       <nav class="navigation">
@@ -82,6 +92,10 @@
       import { meteorEffect } from './js/meteors.js';
       import { Gallery } from './js/gallery.js';
       import standardsResources from './resources/standards/index.js';
+      import { LoadingManager } from './js/loading.js';
+      
+      // 初始化加载管理器
+      const loadingManager = new LoadingManager();
       
       // 等待DOM完全加载后执行
       document.addEventListener('DOMContentLoaded', function () {
@@ -113,6 +127,9 @@
         if (galleryContainer) {
           new Gallery(galleryContainer, standardsResources);
         }
+        
+        // 启动加载动画管理，设置最小加载时间为1.5秒
+        loadingManager.startWithMinLoadTime(1500);
       });
     </script>
   </body>
