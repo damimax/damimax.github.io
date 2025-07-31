@@ -173,7 +173,7 @@ class Gallery {
     if (fileType === 'video') {
       this.modalImage.style.display = 'none';
       this.modalVideo.style.display = 'block';
-      this.modalVideo.src = resource.thumbnail;
+      this.modalVideo.src = resource.url;
       this.currentVideo = this.modalVideo;
       this.modalVideo.play();
     } else if (fileType === 'document') {
@@ -189,7 +189,7 @@ class Gallery {
     } else {
       this.modalVideo.style.display = 'none';
       this.modalImage.style.display = 'block';
-      this.modalImage.src = resource.thumbnail;
+      this.modalImage.src = resource.url;
       this.currentVideo = null;
     }
     

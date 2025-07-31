@@ -1,0 +1,23 @@
+{
+  "name": "damimax-thumbnail-optimizer",
+  "version": "1.0.0",
+  "description": "智能缩略图优化工具，将图片压缩到20KB左右",
+  "main": "thumbnail-optimizer.js",
+  "scripts": {
+    "optimize": "node thumbnail-optimizer.js",
+    "optimize:promotion": "node thumbnail-optimizer.js promotion",
+    "optimize:sandbox": "node thumbnail-optimizer.js sandbox",
+    "optimize:standards": "node thumbnail-optimizer.js standards"
+  },
+  "dependencies": {
+    "sharp": "^0.32.6"
+  },
+  "keywords": [
+    "thumbnail",
+    "optimization",
+    "image-compression",
+    "sharp"
+  ],
+  "author": "DAMI-MAX",
+  "license": "MIT"
+} 
