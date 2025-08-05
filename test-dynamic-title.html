@@ -101,14 +101,17 @@
         
         <div class="countdown-display">
             <div>当前倒计时：<span id="currentCountdown">计算中...</span></div>
+            <div>页面标题：<span id="pageTitle">加载中...</span></div>
             <div>分享标题：<span id="shareTitle">加载中...</span></div>
             <div>分享描述：<span id="shareText">加载中...</span></div>
+            <div>OG标题：<span id="ogTitle">加载中...</span></div>
         </div>
         
         <div class="share-info">
             <div class="info-title">功能说明：</div>
-            <div class="info-item">• 分享标题会自动包含剩余天数，格式：郑州 · 龙湖熙上 | 二期合同交付倒计时 X 天</div>
+            <div class="info-item">• 页面标题和分享标题都会自动包含剩余天数</div>
             <div class="info-item">• 标题每分钟自动更新，确保倒计时准确性</div>
+            <div class="info-item">• 动态更新Open Graph和Twitter meta标签</div>
             <div class="info-item">• 保留描述文本，但不重复倒计时信息</div>
             <div class="info-item">• 在微信内浏览器中会显示专用提示</div>
         </div>
@@ -131,14 +134,21 @@
 
         function updateDisplay() {
             const currentCountdown = document.getElementById('currentCountdown');
+            const pageTitle = document.getElementById('pageTitle');
             const shareTitle = document.getElementById('shareTitle');
             const shareText = document.getElementById('shareText');
+            const ogTitle = document.getElementById('ogTitle');
             
             if (shareManager) {
                 const remainingDays = shareManager.getRemainingDays();
                 currentCountdown.textContent = `${remainingDays} 天`;
+                pageTitle.textContent = document.title;
                 shareTitle.textContent = shareManager.shareData.title;
                 shareText.textContent = shareManager.shareData.text;
+                
+                // 获取OG标题
+                const ogTitleMeta = document.querySelector('meta[property="og:title"]');
+                ogTitle.textContent = ogTitleMeta ? ogTitleMeta.getAttribute('content') : '未找到';
             }
         }
 

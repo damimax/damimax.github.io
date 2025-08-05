@@ -28,6 +28,9 @@ class ShareManager {
       this.shareData.title = '郑州 · 龙湖熙上 | 二期合同交付期限已到';
       this.shareData.text = '时间正一分一秒地紧迫流逝，交付若不达标，我们绝不妥协，必捍卫合法权益。';
     }
+    
+    // 动态更新页面标题和meta标签
+    this.updatePageMeta();
   }
 
   init() {
@@ -648,6 +651,56 @@ class ShareManager {
       this.updateShareData();
       this.updateTooltipDisplay();
     }, 60000); // 60秒 = 1分钟
+    
+    // 页面加载后立即更新一次
+    setTimeout(() => {
+      this.updateShareData();
+    }, 1000); // 1秒后更新，确保页面完全加载
+  }
+
+  /**
+   * 更新页面meta标签和标题
+   */
+  updatePageMeta() {
+    const remainingDays = this.getRemainingDays();
+    let titleText, ogTitle, ogDescription;
+    
+    if (remainingDays > 0) {
+      titleText = `郑州 · 龙湖熙上 | 二期合同交付倒计时 ${remainingDays} 天`;
+      ogTitle = `郑州 · 龙湖熙上 | 二期合同交付倒计时 ${remainingDays} 天`;
+      ogDescription = `时间正一分一秒地紧迫流逝，交付若不达标，我们绝不妥协，必捍卫合法权益。距离交付日期仅剩 ${remainingDays} 天。`;
+    } else {
+      titleText = '郑州 · 龙湖熙上 | 二期合同交付期限已到';
+      ogTitle = '郑州 · 龙湖熙上 | 二期合同交付期限已到';
+      ogDescription = '时间正一分一秒地紧迫流逝，交付若不达标，我们绝不妥协，必捍卫合法权益。';
+    }
+    
+    // 更新页面标题
+    document.title = titleText;
+    
+    // 更新Open Graph标题
+    let ogTitleMeta = document.querySelector('meta[property="og:title"]');
+    if (ogTitleMeta) {
+      ogTitleMeta.setAttribute('content', ogTitle);
+    }
+    
+    // 更新Open Graph描述
+    let ogDescMeta = document.querySelector('meta[property="og:description"]');
+    if (ogDescMeta) {
+      ogDescMeta.setAttribute('content', ogDescription);
+    }
+    
+    // 更新Twitter标题
+    let twitterTitleMeta = document.querySelector('meta[name="twitter:title"]');
+    if (twitterTitleMeta) {
+      twitterTitleMeta.setAttribute('content', ogTitle);
+    }
+    
+    // 更新Twitter描述
+    let twitterDescMeta = document.querySelector('meta[name="twitter:description"]');
+    if (twitterDescMeta) {
+      twitterDescMeta.setAttribute('content', ogDescription);
+    }
   }
 
   /**
