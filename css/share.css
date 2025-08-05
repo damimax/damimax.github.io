@@ -241,7 +241,7 @@
   animation: fadeIn 0.3s ease;
 }
 
-.modal-content {
+.link-modal .modal-content {
   background: white;
   border-radius: 12px;
   max-width: 500px;
@@ -251,7 +251,7 @@
   animation: slideUp 0.3s ease;
 }
 
-.modal-header {
+.link-modal .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -259,13 +259,13 @@
   border-bottom: 1px solid #eee;
 }
 
-.modal-header h3 {
+.link-modal .modal-header h3 {
   margin: 0;
   font-size: 18px;
   color: #333;
 }
 
-.modal-close {
+.link-modal .modal-close {
   background: none;
   border: none;
   font-size: 24px;
@@ -281,27 +281,27 @@
   transition: background-color 0.2s ease;
 }
 
-.modal-close:hover {
+.link-modal .modal-close:hover {
   background: #f5f5f5;
 }
 
-.modal-body {
+.link-modal .modal-body {
   padding: 24px;
 }
 
-.modal-body p {
+.link-modal .modal-body p {
   margin: 0 0 16px 0;
   color: #666;
   font-size: 14px;
 }
 
-.link-container {
+.link-modal .link-container {
   display: flex;
   gap: 10px;
   align-items: center;
 }
 
-.link-container input {
+.link-modal .link-container input {
   flex: 1;
   padding: 12px;
   border: 1px solid #ddd;
@@ -310,7 +310,7 @@
   background: #f9f9f9;
 }
 
-.link-container button {
+.link-modal .link-container button {
   padding: 12px 20px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
@@ -322,40 +322,40 @@
   transition: all 0.2s ease;
 }
 
-.link-container button:hover {
+.link-modal .link-container button:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
 /* 浏览器提示样式 */
-.browser-prompt {
+.link-modal .browser-prompt {
   text-align: center;
 }
 
-.browser-prompt .prompt-icon {
+.link-modal .browser-prompt .prompt-icon {
   font-size: 48px;
   margin-bottom: 16px;
 }
 
-.browser-prompt .prompt-title {
+.link-modal .browser-prompt .prompt-title {
   font-size: 18px;
   font-weight: 600;
   color: #333;
   margin-bottom: 12px;
 }
 
-.browser-prompt .prompt-desc {
+.link-modal .browser-prompt .prompt-desc {
   font-size: 14px;
   color: #555;
   line-height: 1.5;
   margin-bottom: 20px;
 }
 
-.share-methods {
+.link-modal .share-methods {
   margin-bottom: 20px;
 }
 
-.method-item {
+.link-modal .method-item {
   display: flex;
   align-items: flex-start;
   gap: 12px;
@@ -366,24 +366,24 @@
   border-radius: 8px;
 }
 
-.method-icon {
+.link-modal .method-icon {
   font-size: 20px;
   flex-shrink: 0;
   margin-top: 2px;
 }
 
-.method-text {
+.link-modal .method-text {
   font-size: 13px;
   color: #555;
   line-height: 1.4;
 }
 
-.method-text strong {
+.link-modal .method-text strong {
   color: #333;
 }
 
 /* 浏览器步骤样式 */
-.browser-steps {
+.link-modal .browser-steps {
   margin: 20px 0;
   padding: 15px;
   background: #f8f9fa;
@@ -391,18 +391,18 @@
   border-left: 4px solid #667eea;
 }
 
-.step-item {
+.link-modal .step-item {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 12px;
 }
 
-.step-item:last-child {
+.link-modal .step-item:last-child {
   margin-bottom: 0;
 }
 
-.step-number {
+.link-modal .step-number {
   width: 24px;
   height: 24px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -416,7 +416,7 @@
   flex-shrink: 0;
 }
 
-.step-text {
+.link-modal .step-text {
   font-size: 14px;
   color: #555;
   line-height: 1.4;
@@ -480,11 +480,11 @@
     flex-direction: column;
   }
 
-  .modal-content {
+  .link-modal .modal-content {
     margin: 20px;
   }
 
-  .link-container {
+  .link-modal .link-container {
     flex-direction: column;
     align-items: stretch;
   }
@@ -495,7 +495,7 @@
   .share-tooltip,
   .prompt-content,
   .share-success-message,
-  .modal-content {
+  .link-modal .modal-content {
     background: #1a1a1a;
     color: #fff;
   }
@@ -507,7 +507,7 @@
 
   .tooltip-desc,
   .prompt-message,
-  .modal-body p {
+  .link-modal .modal-body p {
     color: #ccc;
   }
 
@@ -529,27 +529,28 @@
     background: #444;
   }
 
-  .modal-header {
+  .link-modal .modal-header {
     border-bottom-color: #333;
   }
-  .modal-header h3 {
+  
+  .link-modal .modal-header h3 {
     color: #ccc;
   }
 
-  .link-container input {
+  .link-modal .link-container input {
     background: #333;
     border-color: #555;
     color: #fff;
   }
 
-  .browser-prompt .prompt-title {
+  .link-modal .browser-prompt .prompt-title {
     font-size: 18px;
     font-weight: 600;
     color: #ccc;
     margin-bottom: 12px;
   }
   
-  .browser-prompt .prompt-desc {
+  .link-modal .browser-prompt .prompt-desc {
     font-size: 14px;
     color: #bbb;
     line-height: 1.5;
