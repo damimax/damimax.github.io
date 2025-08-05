@@ -262,7 +262,7 @@
 .modal-header h3 {
   margin: 0;
   font-size: 18px;
-  color: #eee;
+  color: #333;
 }
 
 .modal-close {
@@ -340,13 +340,13 @@
 .browser-prompt .prompt-title {
   font-size: 18px;
   font-weight: 600;
-  color: #ddd;
+  color: #333;
   margin-bottom: 12px;
 }
 
 .browser-prompt .prompt-desc {
   font-size: 14px;
-  color: #ccc;
+  color: #555;
   line-height: 1.5;
   margin-bottom: 20px;
 }
@@ -460,30 +460,30 @@
     bottom: 90px;
     right: 15px;
   }
-  
+
   .share-btn {
     padding: 8px 14px;
     font-size: 12px;
   }
-  
+
   .share-tooltip {
     width: 260px;
     right: -10px;
   }
-  
+
   .prompt-content {
     padding: 24px;
     margin: 20px;
   }
-  
+
   .prompt-actions {
     flex-direction: column;
   }
-  
+
   .modal-content {
     margin: 20px;
   }
-  
+
   .link-container {
     flex-direction: column;
     align-items: stretch;
@@ -499,43 +499,61 @@
     background: #1a1a1a;
     color: #fff;
   }
-  
+
   .tooltip-title,
   .prompt-title {
     color: #fff;
   }
-  
+
   .tooltip-desc,
   .prompt-message,
   .modal-body p {
     color: #ccc;
   }
-  
+
   .tooltip-btn.secondary {
     background: #333;
     color: #ccc;
   }
-  
+
   .tooltip-btn.secondary:hover {
     background: #444;
   }
-  
+
   .prompt-btn.secondary {
     background: #333;
     color: #ccc;
   }
-  
+
   .prompt-btn.secondary:hover {
     background: #444;
   }
-  
+
   .modal-header {
     border-bottom-color: #333;
   }
-  
+  .modal-header h3 {
+    color: #ccc;
+  }
+
   .link-container input {
     background: #333;
     border-color: #555;
     color: #fff;
   }
-} 
+
+  .browser-prompt .prompt-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ccc;
+    margin-bottom: 12px;
+  }
+  
+  .browser-prompt .prompt-desc {
+    font-size: 14px;
+    color: #bbb;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  
+}
