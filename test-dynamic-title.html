@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态倒计时标题测试</title>
+    <link rel="stylesheet" href="./css/share.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .test-title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .test-description {
+            text-align: center;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .share-info {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .info-item {
+            margin-bottom: 10px;
+            font-size: 14px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .test-btn {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .test-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .countdown-display {
+            text-align: center;
+            font-size: 18px;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1 class="test-title">动态倒计时标题测试</h1>
+        <p class="test-description">
+            此页面用于测试分享标题中的动态倒计时功能。<br>
+            分享标题会自动包含剩余天数信息。
+        </p>
+        
+        <div class="countdown-display">
+            <div>当前倒计时：<span id="currentCountdown">计算中...</span></div>
+            <div>分享标题：<span id="shareTitle">加载中...</span></div>
+            <div>分享描述：<span id="shareText">加载中...</span></div>
+        </div>
+        
+        <div class="share-info">
+            <div class="info-title">功能说明：</div>
+            <div class="info-item">• 分享标题会自动包含剩余天数，格式：郑州 · 龙湖熙上 | 二期合同交付倒计时 X 天</div>
+            <div class="info-item">• 标题每分钟自动更新，确保倒计时准确性</div>
+            <div class="info-item">• 保留描述文本，但不重复倒计时信息</div>
+            <div class="info-item">• 在微信内浏览器中会显示专用提示</div>
+        </div>
+        
+        <div class="test-buttons">
+            <button class="test-btn" onclick="testShareData()">查看分享数据</button>
+            <button class="test-btn" onclick="testNativeShare()">测试分享功能</button>
+            <button class="test-btn" onclick="updateDisplay()">刷新显示</button>
+        </div>
+    </div>
+
+    <script src="./js/share.js"></script>
+    <script>
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDisplay();
+            // 每分钟更新显示
+            setInterval(updateDisplay, 60000);
+        });
+
+        function updateDisplay() {
+            const currentCountdown = document.getElementById('currentCountdown');
+            const shareTitle = document.getElementById('shareTitle');
+            const shareText = document.getElementById('shareText');
+            
+            if (shareManager) {
+                const remainingDays = shareManager.getRemainingDays();
+                currentCountdown.textContent = `${remainingDays} 天`;
+                shareTitle.textContent = shareManager.shareData.title;
+                shareText.textContent = shareManager.shareData.text;
+            }
+        }
+
+        function testShareData() {
+            if (shareManager) {
+                alert(`分享数据：\n标题：${shareManager.shareData.title}\n描述：${shareManager.shareData.text || '(无)'}\n链接：${shareManager.shareData.url}`);
+            } else {
+                alert('分享管理器未初始化');
+            }
+        }
+
+        function testNativeShare() {
+            if (shareManager && shareManager.nativeShare) {
+                shareManager.nativeShare();
+            } else {
+                alert('分享管理器未初始化');
+            }
+        }
+    </script>
+</body>
+</html> 

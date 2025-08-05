@@ -19,8 +19,14 @@ class ShareManager {
    */
   updateShareData() {
     const remainingDays = this.getRemainingDays();
+    
+    // 动态生成标题，包含倒计时
     if (remainingDays > 0) {
-      this.shareData.text = `时间正一分一秒地紧迫流逝，交付若不达标，我们绝不妥协，必捍卫合法权益。距离交付日期仅剩 ${remainingDays} 天。`;
+      this.shareData.title = `郑州 · 龙湖熙上 | 二期合同交付倒计时 ${remainingDays} 天`;
+      this.shareData.text = '时间正一分一秒地紧迫流逝，交付若不达标，我们绝不妥协，必捍卫合法权益。';
+    } else {
+      this.shareData.title = '郑州 · 龙湖熙上 | 二期合同交付期限已到';
+      this.shareData.text = '时间正一分一秒地紧迫流逝，交付若不达标，我们绝不妥协，必捍卫合法权益。';
     }
   }
 
@@ -29,6 +35,9 @@ class ShareManager {
     this.createShareButton();
     this.bindEvents();
     this.checkShareSupport();
+    
+    // 设置定时器，每分钟更新一次分享数据
+    this.startShareDataTimer();
   }
 
   /**
@@ -68,7 +77,7 @@ class ShareManager {
       <div class="share-tooltip" id="shareTooltip">
         <div class="tooltip-content">
           <div class="tooltip-title">分享给朋友</div>
-          <div class="tooltip-desc">
+          <div class="tooltip-desc" id="tooltipDesc">
             ${this.getRemainingDays() > 0 ? `距离交付日期仅剩 ${this.getRemainingDays()} 天，` : ''}让更多人了解项目进展
           </div>
           <div class="tooltip-actions">
@@ -198,7 +207,7 @@ class ShareManager {
       <div class="prompt-content">
         <div class="prompt-icon">📢</div>
         <div class="prompt-title">重要提醒</div>
-        <div class="prompt-message">
+        <div class="prompt-message" id="initialPromptMessage">
           ${promptMessage}
         </div>
         <div class="prompt-actions">
@@ -250,23 +259,120 @@ class ShareManager {
   }
 
   /**
-   * 原生分享功能
+   * 原生分享功能 - 改进版本
    */
   async nativeShare() {
+    // 首先检查是否在微信内浏览器
+    if (this.isInWeChat()) {
+      this.handleWeChatShare();
+      return;
+    }
+
     try {
       if (this.checkShareSupport()) {
+        // 添加分享状态跟踪
+        this.setShareState('sharing');
+        
         await navigator.share(this.shareData);
+        
+        // 分享成功
+        this.setShareState('success');
         this.showSuccessMessage();
       } else {
         this.fallbackShare();
       }
     } catch (error) {
       console.log('分享被取消或出错:', error);
+      
+      // 重置分享状态
+      this.setShareState('idle');
+      
       // 如果是用户取消，不显示错误
       if (error.name !== 'AbortError') {
         this.fallbackShare();
       }
     }
+  }
+
+  /**
+   * 处理微信内分享
+   */
+  handleWeChatShare() {
+    // 在微信内，直接显示浏览器提示
+    this.showWeChatBrowserPrompt();
+  }
+
+  /**
+   * 显示微信浏览器提示
+   */
+  showWeChatBrowserPrompt() {
+    const modal = document.createElement('div');
+    modal.className = 'link-modal';
+    modal.innerHTML = `
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>微信内分享提示</h3>
+          <button class="modal-close" onclick="this.parentElement.parentElement.parentElement.remove()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="browser-prompt">
+            <div class="prompt-icon">📱</div>
+            <div class="prompt-title">当前在微信内浏览器</div>
+            <div class="prompt-desc">
+              微信内浏览器分享功能受限，建议在系统浏览器中打开后分享。
+            </div>
+            <div class="share-methods">
+              <div class="method-item">
+                <div class="method-icon">🌐</div>
+                <div class="method-text">
+                  <strong>方法一:</strong> 点击右上角 ⋯ → 在浏览器中打开 → 点击右下角分享按钮
+                </div>
+              </div>
+              <div class="method-item">
+                <div class="method-icon">📋</div>
+                <div class="method-text">
+                  <strong>方法二:</strong> 复制链接到系统浏览器打开后分享
+                </div>
+              </div>
+              <div class="method-item">
+                <div class="method-icon">📤</div>
+                <div class="method-text">
+                  <strong>方法三:</strong> 直接复制链接分享给朋友
+                </div>
+              </div>
+            </div>
+            <div class="browser-steps">
+              <div class="step-item">
+                <div class="step-number">1</div>
+                <div class="step-text">点击右上角菜单按钮</div>
+              </div>
+              <div class="step-item">
+                <div class="step-number">2</div>
+                <div class="step-text">选择"在浏览器中打开"</div>
+              </div>
+              <div class="step-item">
+                <div class="step-number">3</div>
+                <div class="step-text">在浏览器中点击右下角分享按钮</div>
+              </div>
+            </div>
+            <div class="link-container">
+              <input type="text" value="${window.location.href}" readonly id="shareLink">
+              <button onclick="shareManager.copyLink()">复制链接</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+  }
+
+  /**
+   * 设置分享状态
+   */
+  setShareState(state) {
+    this.shareState = state;
+    // 可以在这里添加状态变化的处理逻辑
   }
 
   /**
@@ -301,6 +407,14 @@ class ShareManager {
            userAgent.includes('wework') || // 企业微信
            userAgent.includes('douyin') || // 抖音
            userAgent.includes('toutiao'); // 头条
+  }
+
+  /**
+   * 检测是否在微信内浏览器
+   */
+  isInWeChat() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    return userAgent.includes('micromessenger');
   }
 
   /**
@@ -522,6 +636,40 @@ class ShareManager {
     if (shareContainer) {
       shareContainer.style.display = 'none';
       this.hideTooltip();
+    }
+  }
+
+  /**
+   * 启动分享数据定时器
+   */
+  startShareDataTimer() {
+    // 每分钟更新一次分享数据
+    setInterval(() => {
+      this.updateShareData();
+      this.updateTooltipDisplay();
+    }, 60000); // 60秒 = 1分钟
+  }
+
+  /**
+   * 更新提示框显示
+   */
+  updateTooltipDisplay() {
+    const tooltipDesc = document.getElementById('tooltipDesc');
+    if (tooltipDesc) {
+      const remainingDays = this.getRemainingDays();
+      tooltipDesc.innerHTML = `${remainingDays > 0 ? `距离交付日期仅剩 ${remainingDays} 天，` : ''}让更多人了解项目进展`;
+    }
+    
+    // 更新初始提示的显示
+    const initialPromptMessage = document.getElementById('initialPromptMessage');
+    if (initialPromptMessage) {
+      const remainingDays = this.getRemainingDays();
+      const promptMessage = `
+        时间正一分一秒地紧迫流逝，交付若不达标，我们绝不妥协，必捍卫合法权益。
+        <br><br>
+        距离交付日期仅剩 ${remainingDays} 天，请分享给更多业主，共同关注项目进展！
+      `;
+      initialPromptMessage.innerHTML = promptMessage;
     }
   }
 
